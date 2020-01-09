@@ -6,7 +6,7 @@
 Summary: Window Navigator Construction Kit
 Name: libwnck
 Version: 2.28.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://download.gnome.org/sources/libwnck/
 Source0: http://download.gnome.org/sources/libwnck/2.28/%{name}-%{version}.tar.bz2
 License: LGPLv2+
@@ -27,6 +27,10 @@ BuildRequires:  gettext
 BuildRequires:  intltool
 
 Patch0: translation-updates.patch
+
+# http://bugzilla.gnome.org/show_bug.cgi?id=171804
+# https://bugzilla.redhat.com/show_bug.cgi?id=673231
+Patch1: grouping-sort-policy.patch
 
 %description
 
@@ -60,6 +64,7 @@ just to use precompiled applications.
 %setup -q
 
 %patch0 -p1 -b .translation
+%patch1 -p1 -b .grouping-sort-policy
 
 %build
 
@@ -97,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_datadir}/gtk-doc/html/libwnck
 
 %changelog
+* Thu Mar 03 2011 Ray Strode <rstrode@redhat.com> 2.28.0-3
+- Add new api for adjusting sort policy of windows in groups.
+  Resolves: #673231
+
 * Tue Jul 27 2010 Soren Sandmann <ssp@redhat.com> - 2.28.0-2
 - Translation updates
 
